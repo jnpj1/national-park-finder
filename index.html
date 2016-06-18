@@ -29,13 +29,15 @@
 					<input type="text" placeholder="Search for park by name" id="search-box"
 						data-bind="value: searchTermsString">
 					<input type="submit" value="Find Park!" id="search-button">
-					<input type="button" value="Reset" id="reset-button" data-bind="click: resetMap">
-					<input type="button" value="Favorites" id="favorites-button">
+					<input type="button" value="Clear Filters" id="reset-button" data-bind="click: resetMap">
+					<input type="button" value="Show Favorites" id="favorites-button" 
+						data-bind="click: filterFavorites">
  				</form>
 			</div>
 			<ul id="park-list" data-bind="foreach: parkList">
 				<li class="park-list-item" data-bind="text: name, visible: shouldDisplay, 
-					click: $parent.markerFocus"></li>
+				css: {favoritePark: favorited() > 0}, click: $parent.markerFocus">
+				</li>
 			</ul>
 		</div>
 	</section>

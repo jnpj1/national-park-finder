@@ -50,7 +50,27 @@ a {
 #window-heading {
 	font-size: 20px;
 	text-align: center;
-	max-width: 310px;
+	width: 260px;
+}
+
+#favorite-star {
+	text-shadow: 2px 2px 3px #6c7a7d;
+	font-size: 30px;
+	margin-left: 20px;
+	width: 10px;
+}
+
+#favorite-star:hover {
+	color: #ff8362;
+}
+
+#window-heading, #favorite-star {
+	display: inline-block;
+	max-height: 40px;
+	margin-bottom: 5px;
+	margin-top: 10px;
+	padding-bottom: 0;
+	padding-top: 0;
 }
 
 #wiki-content {
@@ -147,18 +167,14 @@ a {
 #reset-button, #favorites-button {
 	margin: 5px;
 	height: 4vh;
+	font-size: 14px;
+	width: 100px;
 }
 
 #search-button:hover, #reset-button:hover,
  #favorites-button:hover {
 	background-color: #55676a;
 	box-shadow: 0 3px 5px #303f42;
-}
-
-#search-button:active, #reset-button:active,
- #favorites-button:active {
-	background-color: #55676a;
-	box-shadow: inset 0 5px 30px #303f42;
 }
 
 #park-list {
@@ -193,4 +209,11 @@ a {
 	text-shadow: 2px 2px 3px #6c7a7d;
 }
 
+.favoritePark {
+	color: #deada1;
+}
+
+.favorite-star {
+	color: #ff8362;
+}
 

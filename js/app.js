@@ -329,7 +329,8 @@ var ViewModel = function() {
 	this.initMap = function() {
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: 37.090, lng: -91},
-			zoom: 4
+			zoom: 4,
+			maxZoom: 8
 		});
 
 		// Initialize info window outside of forEach function to allow only one to be opened
@@ -366,8 +367,8 @@ var ViewModel = function() {
 
 		// Create HTML content string for text in info window
 		var content = '<div id="text-content"><h3 id="window-heading">' + park.name() + 
-			' National Park</h3></div><div id="wiki-content"></div>' + 
-			'<div id="image-content"></div>';
+			' National Park</h3><h4 id="favorite-star">&#9733</h4></div><div id="wiki-content">' + 
+			'</div><div id="image-content"></div>';
 
 		// Open and pass content string to info window
 		self.infoWindow.open(map, marker);
@@ -377,11 +378,22 @@ var ViewModel = function() {
 		self.photoAppender(park.name());
 		self.wikiAppender(park.name());
 
+		// Add 'favorite-star' class if park is favorited
+		if (park.favorited()) {
+			$('#favorite-star').addClass('favorite-star')
+		}
+
 		// Animate marker for one bounce
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 		setTimeout(function() {
 			marker.setAnimation(null);
 		}, 750);
+
+		// Add event listener for click on favorite star and toggle favorited status
+		$('#favorite-star').click(function() {
+			self.toggleFavorite(park);
+			$('#favorite-star').toggleClass('favorite-star');
+		});
 	}
 
 	// Function for searching for google places photos and adding to info window HTML
@@ -433,7 +445,7 @@ var ViewModel = function() {
 		// Help Google disambiguate Glacier Bay National Park
 		if (data === "Glacier Bay") {
 			parkName = data + ' national park and preserve';
-			$("#wiki-content").css({'font-size': '12px', 'height': '180px'});
+			$("#wiki-content").css({'font-size': '12px', 'height': '180px', 'margin-top': '10px'});
 		}
 				
 		// Google places text search for park
@@ -543,7 +555,12 @@ var ViewModel = function() {
 		// Close InfoWindow, if open
 		self.infoWindow.close();
 
-		// Array to store matching parkList indexes
+		// Remove previous no match error message, if present
+		if ($('#match-error').length) {
+			$('#match-error').remove();
+		}
+
+		// Array to store matching parkList coordinates
 		var matchingCoordinates = [];
 
 		// Variable to check if match occurred
@@ -558,6 +575,8 @@ var ViewModel = function() {
 			} else {
 				matchingCoordinates.push(park.latLon);
 				matchFound = true;
+				park.shouldDisplay(true);
+				park.associatedMarker.setMap(map);
 			}
 		});
 
@@ -596,6 +615,43 @@ var ViewModel = function() {
 		map.setZoom(4);
 	};
 
+	this.filterFavorites = function(element) {
+
+		// Close InfoWindow, if open
+		self.infoWindow.close();
+
+		// Remove previous no match error message, if present
+		if ($('#match-error').length) {
+			$('#match-error').remove();
+		}
+
+		// Array to store favorite parkList coordinates
+		var favoriteCoordinates = [];
+
+		// Variable to check if favorite(s) exist
+		var favoriteFound = false;
+
+		self.parkList().forEach(function(park, index) {
+			if (!park.favorited()) {
+				park.shouldDisplay(false);
+				park.associatedMarker.setMap(null);
+			} else {
+				favoriteCoordinates.push(park.latLon);
+				favoriteFound = true;
+				park.shouldDisplay(true);
+				park.associatedMarker.setMap(map);
+			}
+		});
+
+		// Check to see if favorites were found. If so, call function to change map bounds.
+		// If no favorites, display message.
+		if (favoriteFound) {	
+			self.changeMapBounds(favoriteCoordinates);
+		} else {
+			$('#park-list').append('<h3 id="match-error">No favorites found</h3>');
+		}
+	}
+
 	// Extend/change map bounds to best display markers after filter event
 	this.changeMapBounds = function(data) {
 		console.log(data);
@@ -605,6 +661,11 @@ var ViewModel = function() {
 			bounds.extend(currentLatLng);
 		}
 		map.fitBounds(bounds);
+	};
+
+	this.toggleFavorite = function(park) {
+		var newFavoriteStatus = !park.favorited();
+		park.favorited(newFavoriteStatus);
 	};
 
 	window.addEventListener('load', self.initMap);
