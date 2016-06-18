@@ -301,7 +301,10 @@ var nationalParks = [
 var Park = function(data) {
 	this.name = ko.observable(data.name);
 	this.latLon = {lat: data.lat, lng: data.lon};
-}
+	this.shouldDisplay = ko.observable(true);
+	this.favorited = ko.observable(false);
+	this.associatedMarker;
+};
 
 var ViewModel = function() {
 	var self = this;
@@ -312,59 +315,74 @@ var ViewModel = function() {
 		self.parkList.push(new Park(park));
 	});
 
-	// Toggle sidebar slideout on hamburger click
+	// Toggle sidebar slide on hamburger click
 	this.sidebarToggle = function() {
 		$("#sidebar").toggleClass("hidden-sidebar");
-	}
+	};
 
-	// Initialize Google map and marker array variables
+	// Initialize Google map, info window, and marker array variables
 	this.map;
 	this.markers = [];
+	this.infoWindow;
 
 	// Function for initializing map view, markers, and info windows
 	this.initMap = function() {
 		map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: 37.090, lng: -95.713},
+			center: {lat: 37.090, lng: -91},
 			zoom: 4
 		});
 
 		// Initialize info window outside of forEach function to allow only one to be opened
-		var infoWindow = new google.maps.InfoWindow();
+		self.infoWindow = new google.maps.InfoWindow();
 
-		// Create markers and push to array of markers for future manipulation
+		// Create initial markers
 		self.parkList().forEach(function(park){
-			var marker = new google.maps.Marker({
-				position: park.latLon,
-				map: map,
-				title: park.name()
-			});
-			self.markers.push(marker);
+			self.markerRender(park);
+		});
+	};
 
-			// Create HTML content string for text in info window
-			var content = '<div id="text-content"><h3 id="window-heading">' + park.name() + 
+	this.markerRender = function(park) {
+
+		// Create marker
+		var marker = new google.maps.Marker({
+			position: park.latLon,
+			map: map,
+			title: park.name()
+		});
+
+		// Push marker to array of markers for future search result display manipulation
+		self.markers.push(marker);
+
+		// Associate marker with its corresponding park
+		park.associatedMarker = marker;
+
+		// Add click event listener to open info windows and search for necessary information
+		marker.addListener('click', function() {
+			self.infoWindowRender(map, marker, park);
+		});
+	};
+
+	this.infoWindowRender = function(map, marker, park) {
+
+		// Create HTML content string for text in info window
+		var content = '<div id="text-content"><h3 id="window-heading">' + park.name() + 
 			' National Park</h3></div><div id="wiki-content"></div>' + 
 			'<div id="image-content"></div>';
 
+		// Open and pass content string to info window
+		self.infoWindow.open(map, marker);
+		self.infoWindow.setContent(content);
 
-			// Add click event listener to open info windows and search for necessary information
-			marker.addListener('click', function() {
+		// Call functions for searching and adding photos and wikipedia information
+		self.photoAppender(park.name());
+		self.wikiAppender(park.name());
 
-				// Open and pass content string to info window
-				infoWindow.open(map, marker);
-				infoWindow.setContent(content);
-
-				// Call functions for searching and adding photos and wikipedia information
-				self.photoAppender(park.name());
-				self.wikiAppender(park.name());
-
-				// Animate marker for one bounce
-				marker.setAnimation(google.maps.Animation.BOUNCE);
-				setTimeout(function() {
-					marker.setAnimation(null);
-				}, 750);
-			});
-		});
-	};
+		// Animate marker for one bounce
+		marker.setAnimation(google.maps.Animation.BOUNCE);
+		setTimeout(function() {
+			marker.setAnimation(null);
+		}, 750);
+	}
 
 	// Function for searching for google places photos and adding to info window HTML
 	this.photoAppender = function(data) {
@@ -509,6 +527,84 @@ var ViewModel = function() {
     			clearTimeout(wikiRequestTimeout);
     		})
     	});
+	};
+
+	// Display function to open infoWindow when park listing item is clicked
+	this.markerFocus = function(park) {
+		self.infoWindowRender(map, park.associatedMarker, park);
+	};
+
+	// Initialize variable to store search strings
+	this.searchTermsString = ko.observable("");
+
+	// Search function to allow filtering by name input
+	this.filterNames = function(element) {
+
+		// Close InfoWindow, if open
+		self.infoWindow.close();
+
+		// Array to store matching parkList indexes
+		var matchingCoordinates = [];
+
+		// Variable to check if match occurred
+		var matchFound = false;
+
+		// Perform name search and toggle display of non-matching park listings and markers
+		var currentSearchString = self.searchTermsString().toLowerCase();
+		self.parkList().forEach(function(park, index) {
+			if (park.name().toLowerCase().search(currentSearchString) < 0) {
+				park.shouldDisplay(false);
+				park.associatedMarker.setMap(null);
+			} else {
+				matchingCoordinates.push(park.latLon);
+				matchFound = true;
+			}
+		});
+
+		// Check to see if matches were found. If so, call function to change map bounds.
+		// If no matches, display message.
+		if (matchFound) {	
+			self.changeMapBounds(matchingCoordinates);
+		} else {
+			$('#park-list').append('<h3 id="match-error">No matches found</h3>');
+		}
+	};
+
+	// Reset map to show all park listings and markers when reset button is clicked
+	this.resetMap = function(element) {
+
+		// Close InfoWindow, if open
+		self.infoWindow.close();
+
+		// Remove no match error message, if present
+		if ($('#match-error').length) {
+			$('#match-error').remove();
+		}
+
+		// Display all park listings and markers
+		self.parkList().forEach(function(park) {
+			park.shouldDisplay(true);
+			park.associatedMarker.setMap(map);
+		});
+
+		// Remove prior search term(s) from box
+		$("#search-box").val("");
+
+		// Recenter map 
+		var latLng = new google.maps.LatLng(37.090, -91);
+		map.panTo(latLng);
+		map.setZoom(4);
+	};
+
+	// Extend/change map bounds to best display markers after filter event
+	this.changeMapBounds = function(data) {
+		console.log(data);
+		var bounds = new google.maps.LatLngBounds();
+		for (var i = 0; i < data.length; i++) {
+			var currentLatLng = new google.maps.LatLng(parseFloat(data[i].lat), parseFloat(data[i].lng));
+			bounds.extend(currentLatLng);
+		}
+		map.fitBounds(bounds);
 	};
 
 	window.addEventListener('load', self.initMap);

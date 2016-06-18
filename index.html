@@ -25,15 +25,17 @@
 				<h3 id="sidebar-heading">National Park List</h3>
 			</div>
 			<div id="filter-container">
-				<form>
-					<input type="text" placeholder="Search for park by name" id="search-box">
+				<form data-bind="submit: filterNames">
+					<input type="text" placeholder="Search for park by name" id="search-box"
+						data-bind="value: searchTermsString">
 					<input type="submit" value="Find Park!" id="search-button">
-					<input type="button" value="Reset" id="reset-button">
+					<input type="button" value="Reset" id="reset-button" data-bind="click: resetMap">
 					<input type="button" value="Favorites" id="favorites-button">
  				</form>
 			</div>
 			<ul id="park-list" data-bind="foreach: parkList">
-				<li class="park-list-item" data-bind="text: name"></li>
+				<li class="park-list-item" data-bind="text: name, visible: shouldDisplay, 
+					click: $parent.markerFocus"></li>
 			</ul>
 		</div>
 	</section>

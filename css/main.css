@@ -50,6 +50,7 @@ a {
 #window-heading {
 	font-size: 20px;
 	text-align: center;
+	max-width: 310px;
 }
 
 #wiki-content {
@@ -176,6 +177,11 @@ a {
 	text-align: center;
 	line-height: 35px;
 	cursor: pointer;
+}
+
+#match-error {
+	text-align: center;
+	margin-top: 20px;
 }
 
 .park-list-item:nth-child(1) {
