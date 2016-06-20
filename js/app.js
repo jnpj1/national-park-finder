@@ -315,9 +315,13 @@ var ViewModel = function() {
 		self.parkList.push(new Park(park));
 	});
 
-	// Toggle sidebar slide on hamburger click
-	this.sidebarToggle = function() {
-		$("#sidebar").toggleClass("hidden-sidebar");
+	// Variable for holding open/closed status of sidebar
+	this.sidebarOpenStatus = ko.observable(true);
+
+	// Toggle sidebar open/close value change on hamburger click
+	this.sidebarToggleStatus = function() {
+		var currentStatus = self.sidebarOpenStatus();
+		self.sidebarOpenStatus(!currentStatus);
 	};
 
 	// Initialize Google map, info window, and marker array variables
@@ -668,6 +672,24 @@ var ViewModel = function() {
 	};
 
 	window.addEventListener('load', self.initMap);
+};
+
+ko.bindingHandlers.slideVisible = {
+	init: function(element, valueAccessor) {
+		if ($(window).width() < 855) {
+			$("#sidebar").toggleClass("hidden-sidebar");
+			valueAccessor()(false);
+		}
+	},
+	update: function(element, valueAccessor) {
+		console.log("update");
+		var value = valueAccessor()();
+		if (value === true) {
+			$("#sidebar").removeClass("hidden-sidebar");
+		} else {
+			$("#sidebar").addClass("hidden-sidebar");
+		}
+	}
 };
 
 ko.applyBindings(new ViewModel());

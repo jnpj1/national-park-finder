@@ -12,7 +12,7 @@
 			<h2>Which American National Park Should I Visit This Summer?</h2>
 		</div>
 		<div id="hamburger">
-			<h1 data-bind="click: sidebarToggle">&#9776</h1>
+			<h1 data-bind="click: sidebarToggleStatus">&#9776</h1>
 		</div>
 	</header>
 	<main>
@@ -20,7 +20,7 @@
 		</div>
 	</main>
 	<section>
-		<div id="sidebar">
+		<div id="sidebar" data-bind="slideVisible: sidebarOpenStatus">
 			<div id="sidebar-top">
 				<h3 id="sidebar-heading">National Park List</h3>
 			</div>
