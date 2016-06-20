@@ -175,7 +175,14 @@ a {
  #favorites-button:hover {
 	background-color: #55676a;
 	box-shadow: 0 3px 5px #303f42;
+	color: white;
 }
+
+#search-button:focus, #reset-button:focus,
+ #favorites-button:focus {
+ 	color: white;
+ 	outline: 0 !important;
+ }
 
 #park-list {
 	overflow: auto;
