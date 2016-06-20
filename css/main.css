@@ -282,3 +282,18 @@ a {
 		display: none;
 	}
 }
+
+@media screen and (orientation: landscape) and (max-width: 800px) {
+	#navbar {
+		height: 20vh;
+	}
+	#sidebar {
+		top: 20vh;
+	}
+	#filter-container {
+		height: 12vh;
+	}
+	#park-list {
+		height: 55vh;
+	}
+}

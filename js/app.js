@@ -682,7 +682,6 @@ ko.bindingHandlers.slideVisible = {
 		}
 	},
 	update: function(element, valueAccessor) {
-		console.log("update");
 		var value = valueAccessor()();
 		if (value === true) {
 			$("#sidebar").removeClass("hidden-sidebar");
