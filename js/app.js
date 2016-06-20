@@ -654,7 +654,6 @@ var ViewModel = function() {
 
 	// Extend/change map bounds to best display markers after filter event
 	this.changeMapBounds = function(data) {
-		console.log(data);
 		var bounds = new google.maps.LatLngBounds();
 		for (var i = 0; i < data.length; i++) {
 			var currentLatLng = new google.maps.LatLng(parseFloat(data[i].lat), parseFloat(data[i].lng));
