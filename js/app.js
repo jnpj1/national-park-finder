@@ -334,7 +334,8 @@ var ViewModel = function() {
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: 37.090, lng: -91},
 			zoom: 4,
-			maxZoom: 8
+			maxZoom: 8,
+			minZoom: 2
 		});
 
 		// Initialize info window outside of forEach function to allow only one to be opened
@@ -453,7 +454,7 @@ var ViewModel = function() {
 		}
 
 		// Google places text search for park
-		service.textSearch({query: parkName}, callback);
+		service.textSearch({query: parkName, key: "AIzaSyCFdYCzwJO6Vb5OkThG5sZ53_AiVI4v3eI"}, callback);
 	};
 
 	// Function for searching for wikipedia information and adding to info window HTML
