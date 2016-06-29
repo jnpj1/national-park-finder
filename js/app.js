@@ -261,7 +261,7 @@ var nationalParks = [
 		lon: -103.539
 	},
 	{
-		name: "Virgin Islands",	
+		name: "Virgin Islands",
 		lat: 18.343,
 		lon: -64.749
 	},
@@ -370,8 +370,8 @@ var ViewModel = function() {
 	this.infoWindowRender = function(map, marker, park) {
 
 		// Create HTML content string for text in info window
-		var content = '<div id="text-content"><h3 id="window-heading">' + park.name() + 
-			' National Park</h3><h4 id="favorite-star">&#9733</h4></div><div id="wiki-content">' + 
+		var content = '<div id="text-content"><h3 id="window-heading">' + park.name() +
+			' National Park</h3><h4 id="favorite-star">&#9733</h4></div><div id="wiki-content">' +
 			'</div><div id="image-content"></div>';
 
 		// Open and pass content string to info window
@@ -451,7 +451,7 @@ var ViewModel = function() {
 			parkName = data + ' national park and preserve';
 			$("#wiki-content").css({'font-size': '12px', 'height': '180px', 'margin-top': '10px'});
 		}
-				
+
 		// Google places text search for park
 		service.textSearch({query: parkName}, callback);
 	};
@@ -586,7 +586,7 @@ var ViewModel = function() {
 
 		// Check to see if matches were found. If so, call function to change map bounds.
 		// If no matches, display message.
-		if (matchFound) {	
+		if (matchFound) {
 			self.changeMapBounds(matchingCoordinates);
 		} else {
 			$('#park-list').append('<h3 id="match-error">No matches found</h3>');
@@ -613,7 +613,7 @@ var ViewModel = function() {
 		// Remove prior search term(s) from box
 		$("#search-box").val("");
 
-		// Recenter map 
+		// Recenter map
 		var latLng = new google.maps.LatLng(37.090, -91);
 		map.panTo(latLng);
 		map.setZoom(4);
@@ -649,7 +649,7 @@ var ViewModel = function() {
 
 		// Check to see if favorites were found. If so, call function to change map bounds.
 		// If no favorites, display message.
-		if (favoriteFound) {	
+		if (favoriteFound) {
 			self.changeMapBounds(favoriteCoordinates);
 		} else {
 			$('#park-list').append('<h3 id="match-error">No favorites found</h3>');
