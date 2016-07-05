@@ -1,297 +1,297 @@
 // Array of national parks in the US
 var nationalParks = [
 	{
-		name: "Acadia",
+		name: 'Acadia',
 		lat: 44.332,
 		lon: -68.279
 	},
 	{
-		name: "American Samoa",
+		name: 'American Samoa',
 		lat: -14.258,
 		lon: -170.686
 	},
 	{
-		name: "Arches",
+		name: 'Arches',
 		lat: 38.722,
 		lon: -109.585
 	},
 	{
-		name: "Badlands",
+		name: 'Badlands',
 		lat: 43.848,
 		lon: -102.339
 	},
 	{
-		name: "Big Bend",
+		name: 'Big Bend',
 		lat: 29.172,
 		lon: -103.244
 	},
 	{
-		name: "Biscayne",
+		name: 'Biscayne',
 		lat: 25.398,
 		lon: -80.225
 	},
 	{
-		name: "Black Canyon of the Gunnison",
+		name: 'Black Canyon of the Gunnison',
 		lat: 38.586,
 		lon: -107.776
 	},
 	{
-		name: "Bryce Canyon",
+		name: 'Bryce Canyon',
 		lat: 37.612,
 		lon: -112.195
 	},
 	{
-		name: "Canyonlands",
+		name: 'Canyonlands',
 		lat: 38.253,
 		lon: -109.944
 	},
 	{
-		name: "Capitol Reef",
+		name: 'Capitol Reef',
 		lat: 38.367,
 		lon: -111.261
 	},
 	{
-		name: "Carlsbad Caverns",
+		name: 'Carlsbad Caverns',
 		lat: 32.148,
 		lon: -104.557
 	},
 	{
-		name: "Channel Islands",
+		name: 'Channel Islands',
 		lat: 34.005,
 		lon: -119.806
 	},
 	{
-		name: "Congaree",
+		name: 'Congaree',
 		lat: 33.794,
 		lon: -80.771
 	},
 	{
-		name: "Crater Lake",
+		name: 'Crater Lake',
 		lat: 42.868,
 		lon: -122.169
 	},
 	{
-		name: "Cuyahoga Valley",
+		name: 'Cuyahoga Valley',
 		lat: 41.281,
 		lon: -81.568
 	},
 	{
-		name: "Death Valley",
+		name: 'Death Valley',
 		lat: 36.505,
 		lon: -117.080
 	},
 	{
-		name: "Denali",
+		name: 'Denali',
 		lat: 63.115,
 		lon: -151.193
 	},
 	{
-		name: "Dry Tortugas",
+		name: 'Dry Tortugas',
 		lat: 24.629,
 		lon: -82.873
 	},
 	{
-		name: "Everglades",
+		name: 'Everglades',
 		lat: 25.287,
 		lon: -80.899
 	},
 	{
-		name: "Gates of the Arctic",
+		name: 'Gates of the Arctic',
 		lat: 66.922,
 		lon: -151.489
 	},
 	{
-		name: "Glacier",
+		name: 'Glacier',
 		lat: 48.760,
 		lon: -113.787
 	},
 	{
-		name: "Glacier Bay",
+		name: 'Glacier Bay',
 		lat: 58.666,
 		lon: -136.900
 	},
 	{
-		name: "Grand Canyon",
+		name: 'Grand Canyon',
 		lat: 36.107,
 		lon: -112.113
 	},
 	{
-		name: "Grand Teton",
+		name: 'Grand Teton',
 		lat: 43.791,
 		lon: -110.682
 	},
 	{
-		name: "Great Basin",
+		name: 'Great Basin',
 		lat: 38.984,
 		lon: -114.300
 	},
 	{
-		name: "Great Sand Dunes",
+		name: 'Great Sand Dunes',
 		lat: 37.792,
 		lon: -105.594
 	},
 	{
-		name: "Great Smoky Mountains",
+		name: 'Great Smoky Mountains',
 		lat: 35.628,
 		lon: -83.500
 	},
 	{
-		name: "Guadalupe Mountains",
+		name: 'Guadalupe Mountains',
 		lat: 31.945,
 		lon: -104.873
 	},
 	{
-		name: "Haleakala",
+		name: 'Haleakala',
 		lat: 20.721,
 		lon: -156.155
 	},
 	{
-		name: "Hawaii Volcanoes",
+		name: 'Hawaii Volcanoes',
 		lat: 19.420,
 		lon: -155.289
 	},
 	{
-		name: "Hot Springs",
+		name: 'Hot Springs',
 		lat: 34.522,
 		lon: -93.042
 	},
 	{
-		name: "Isle Royale",
+		name: 'Isle Royale',
 		lat: 47.996,
 		lon: -88.909
 	},
 	{
-		name: "Joshua Tree",
+		name: 'Joshua Tree',
 		lat: 33.874,
 		lon: -115.901
 	},
 	{
-		name: "Katmai",
+		name: 'Katmai',
 		lat: 58.643,
 		lon: -154.702
 	},
 	{
-		name: "Kenai Fjords",
+		name: 'Kenai Fjords',
 		lat: 60.044,
 		lon: -149.816
 	},
 	{
-		name: "Kings Canyon",
+		name: 'Kings Canyon',
 		lat: 36.904,
 		lon: -118.550
 	},
 	{
-		name: "Kobuk Valley",
+		name: 'Kobuk Valley',
 		lat: 67.354,
 		lon: -159.148
 	},
 	{
-		name: "Lake Clark",
+		name: 'Lake Clark',
 		lat: 60.430,
 		lon: -154.303
 	},
 	{
-		name: "Lassen Volcanic",
+		name: 'Lassen Volcanic',
 		lat: 40.498,
 		lon: -121.421
 	},
 	{
-		name: "Mammoth Cave",
+		name: 'Mammoth Cave',
 		lat: 37.187,
 		lon: -86.100
 	},
 	{
-		name: "Mesa Verde",
+		name: 'Mesa Verde',
 		lat: 37.231,
 		lon: -108.462
 	},
 	{
-		name: "Mount Rainier",
+		name: 'Mount Rainier',
 		lat: 46.880,
 		lon: -121.727
 	},
 	{
-		name: "North Cascades",
+		name: 'North Cascades',
 		lat: 48.772,
 		lon: -121.298
 	},
 	{
-		name: "Olympic",
+		name: 'Olympic',
 		lat: 47.802,
 		lon: -123.604
 	},
 	{
-		name: "Petrified Forest",
+		name: 'Petrified Forest',
 		lat: 34.910,
 		lon: -109.807
 	},
 	{
-		name: "Pinnacles",
+		name: 'Pinnacles',
 		lat: 36.491,
 		lon: -121.183
 	},
 	{
-		name: "Redwood",
+		name: 'Redwood',
 		lat: 41.213,
 		lon: -124.005
 	},
 	{
-		name: "Rocky Mountain",
+		name: 'Rocky Mountain',
 		lat: 40.343,
 		lon: -105.684
 	},
 	{
-		name: "Saguaro",
+		name: 'Saguaro',
 		lat: 32.297,
 		lon: -111.167
 	},
 	{
-		name: "Sequoia",
+		name: 'Sequoia',
 		lat: 36.486,
 		lon: -118.566
 	},
 	{
-		name: "Shenandoah",
+		name: 'Shenandoah',
 		lat: 38.293,
 		lon: -78.680
 	},
 	{
-		name: "Theodore Roosevelt",
+		name: 'Theodore Roosevelt',
 		lat: 46.979,
 		lon: -103.539
 	},
 	{
-		name: "Virgin Islands",
+		name: 'Virgin Islands',
 		lat: 18.343,
 		lon: -64.749
 	},
 	{
-		name: "Voyageurs",
+		name: 'Voyageurs',
 		lat: 48.510,
 		lon: -92.925
 	},
 	{
-		name: "Wind Cave",
+		name: 'Wind Cave',
 		lat: 43.605,
 		lon: -103.421
 	},
 	{
-		name: "Wrangell-St. Elias",
+		name: 'Wrangell-St. Elias',
 		lat: 61.711,
 		lon: -142.986
 	},
 	{
-		name: "Yellowstone",
+		name: 'Yellowstone',
 		lat: 44.428,
 		lon: -110.589
 	},
 	{
-		name: "Yosemite",
+		name: 'Yosemite',
 		lat: 37.865,
 		lon: -119.538
 	},
 	{
-		name: "Zion",
+		name: 'Zion',
 		lat: 37.298,
 		lon: -113.026
 	}
@@ -306,6 +306,7 @@ var Park = function(data) {
 	this.associatedMarker;
 };
 
+// Knockout ViewModel
 var ViewModel = function() {
 	var self = this;
 
@@ -335,7 +336,8 @@ var ViewModel = function() {
 			center: {lat: 37.090, lng: -91},
 			zoom: 4,
 			maxZoom: 8,
-			minZoom: 2
+			minZoom: 2,
+			mapTypeId: google.maps.MapTypeId.TERRAIN
 		});
 
 		// Initialize info window outside of forEach function to allow only one to be opened
@@ -347,6 +349,7 @@ var ViewModel = function() {
 		});
 	};
 
+	// Function for rendering markers
 	this.markerRender = function(park) {
 
 		// Create marker
@@ -368,6 +371,7 @@ var ViewModel = function() {
 		});
 	};
 
+	// Function for rendering info windows
 	this.infoWindowRender = function(map, marker, park) {
 
 		// Create HTML content string for text in info window
@@ -416,7 +420,7 @@ var ViewModel = function() {
 		// to the imageContent HTML string and added to info window.
 		function callback(results, status) {
 			var place = results[0].place_id;
-			var imageContentDiv = $("#image-content");
+			var imageContentDiv = $('#image-content');
 			service.getDetails({placeId: place}, function(results, status) {
 				if (status == google.maps.places.PlacesServiceStatus.OK) {
 
@@ -427,12 +431,14 @@ var ViewModel = function() {
 						// Add url and attribution of first three (or less) photos to HTML strings for display
 						for (var i = 0; i < 3; i++) {
 
-							// Check if there is a photo for the current index to avoid errors
+							// Check if there is a photo for the current index to avoid errors when only one or two
+							// photos were returned
 							if (results.photos[i]) {
 								var url = results.photos[i].getUrl({maxWidth: 100, maxHeight: 100});
 								var attr = results.photos[i].html_attributions[0];
 								imageContent += ('<div id="image"><img src="' + url + '"><br>' + attr
 									+ '</div>');
+								console.log(imageContent);
 							}
 						}
 					} else {
@@ -448,27 +454,28 @@ var ViewModel = function() {
 		};
 
 		// Help Google disambiguate Glacier Bay National Park
-		if (data === "Glacier Bay") {
+		if (data === 'Glacier Bay') {
 			parkName = data + ' national park and preserve';
-			$("#wiki-content").css({'font-size': '12px', 'height': '180px', 'margin-top': '10px'});
+			$('#wiki-content').css({'font-size': '12px', 'height': '180px', 'margin-top': '10px'});
 		}
 
 		// Google places text search for park
-		service.textSearch({query: parkName, key: "AIzaSyCFdYCzwJO6Vb5OkThG5sZ53_AiVI4v3eI"}, callback);
+		service.textSearch({query: parkName, key: 'AIzaSyCFdYCzwJO6Vb5OkThG5sZ53_AiVI4v3eI'}, callback);
 	};
 
 	// Function for searching for wikipedia information and adding to info window HTML
 	this.wikiAppender = function(data) {
 		var searchString = data + ' national park';
-		var wikiContentDiv = $("#wiki-content");
+		var wikiContentDiv = $('#wiki-content');
 
 		// Handle wikipedia disambiguation of Glacier National Park by adding country
-		if (data === "Glacier") {
+		if (data === 'Glacier') {
 			searchString += ' U.S.';
 		}
 
-		var urlWiki = "https://en.wikipedia.org/w/api.php";
-		var firstUrlWiki = urlWiki + "?" + $.param({
+		// Define API query string
+		var urlWiki = 'https://en.wikipedia.org/w/api.php';
+		var firstUrlWiki = urlWiki + '?' + $.param({
         	'action': 'query',
         	'format': 'json',
        		'srsearch': searchString,
@@ -492,7 +499,7 @@ var ViewModel = function() {
   			dataType: 'jsonp'
     	}).done(function(result) {
     		var wikiTitle = result.query.search[0].title;
-       		var secondUrlWiki = urlWiki + "?" + $.param({
+       		var secondUrlWiki = urlWiki + '?' + $.param({
 				'action': 'query',
 				'format': 'json',
 				'prop': 'extracts',
@@ -506,11 +513,11 @@ var ViewModel = function() {
     			url: secondUrlWiki,
     			dataType: 'jsonp'
     		}).done(function(result) {
-    			// Function to extract roughly the first several sentences of wiki information
+    			// Function to extract about the first several sentences of wiki information
     			$.each(result.query.pages, function(page) {
 
-    				// Replace line breaks with spaces in extract for easier itieration
-    				var extract = this.extract.replace(/\n/g, " ");
+    				// Replace line breaks with spaces in extract for better iteration
+    				var extract = this.extract.replace(/\n/g, ' ');
 
     				// Split string into sentences
     				var extracted = extract.split('. ');
@@ -525,7 +532,7 @@ var ViewModel = function() {
     					// If/else statement to prevent errors on Wiki extracts of less than
     					// 300 characters.
     					if (extracted[extractedIndex]) {
-    						wikiContent += extracted[extractedIndex] + ". ";
+    						wikiContent += extracted[extractedIndex] + '. ';
     						extractedIndex++;
     						finalStringLength = wikiContent.length;
     					} else {
@@ -535,8 +542,8 @@ var ViewModel = function() {
 
     				// If statement to add additional sentence if period in 'St. ' causes
     				// termination of while loop mid-sentence.
-    				if (wikiContent.slice(-4) === "St. ") {
-    					wikiContent += extracted[extractedIndex] + ". ";
+    				if (wikiContent.slice(-4) === 'St. ') {
+    					wikiContent += extracted[extractedIndex] + '. ';
     				}
     				wikiContent += '</p>';
     			});
@@ -552,7 +559,7 @@ var ViewModel = function() {
 	};
 
 	// Initialize variable to store search strings
-	this.searchTermsString = ko.observable("");
+	this.searchTermsString = ko.observable('');
 
 	// Search function to allow filtering by name input
 	this.filterNames = function(element) {
@@ -612,7 +619,7 @@ var ViewModel = function() {
 		});
 
 		// Remove prior search term(s) from box
-		$("#search-box").val("");
+		$('#search-box').val('');
 
 		// Recenter map
 		var latLng = new google.maps.LatLng(37.090, -91);
@@ -620,6 +627,8 @@ var ViewModel = function() {
 		map.setZoom(4);
 	};
 
+	// Function to filter map and markers by favorite status when 'Show Favorites'
+	// button is clicked.
 	this.filterFavorites = function(element) {
 
 		// Close InfoWindow, if open
@@ -636,6 +645,9 @@ var ViewModel = function() {
 		// Variable to check if favorite(s) exist
 		var favoriteFound = false;
 
+		// Iterate through parks array. Call functions for toggling off display of
+		// listings and markers of parks that are not favorited and toggling on display
+		// of parks that are favorited.
 		self.parkList().forEach(function(park, index) {
 			if (!park.favorited()) {
 				park.shouldDisplay(false);
@@ -667,6 +679,7 @@ var ViewModel = function() {
 		map.fitBounds(bounds);
 	};
 
+	// Change favorite status of park
 	this.toggleFavorite = function(park) {
 		var newFavoriteStatus = !park.favorited();
 		park.favorited(newFavoriteStatus);
@@ -675,19 +688,23 @@ var ViewModel = function() {
 	window.addEventListener('load', self.initMap);
 };
 
+// Custom KnockOut binding to handle sliding of sidebar via adding or removing
+// 'hidden-sidebar' class.
 ko.bindingHandlers.slideVisible = {
 	init: function(element, valueAccessor) {
+		// Checks to see if small/medium mobile device is used and toggles
+		// sidebar to closed.
 		if ($(window).width() < 855) {
-			$("#sidebar").toggleClass("hidden-sidebar");
+			$('#sidebar').toggleClass('hidden-sidebar');
 			valueAccessor()(false);
 		}
 	},
 	update: function(element, valueAccessor) {
 		var value = valueAccessor()();
 		if (value === true) {
-			$("#sidebar").removeClass("hidden-sidebar");
+			$('#sidebar').removeClass('hidden-sidebar');
 		} else {
-			$("#sidebar").addClass("hidden-sidebar");
+			$('#sidebar').addClass('hidden-sidebar');
 		}
 	}
 };

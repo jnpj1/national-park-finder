@@ -98,6 +98,10 @@ a {
 	vertical-align: middle;
 }
 
+#image a:hover {
+	text-decoration: underline;
+}
+
 #places-fail {
 	text-align: center;
 	font-style: italic;
