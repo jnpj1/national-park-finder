@@ -325,6 +325,13 @@ var ViewModel = function() {
 		self.sidebarOpenStatus(!currentStatus);
 	};
 
+	// Variable for holding filter error messages, if any
+	this.errorMessage = ko.observable('');
+	console.log(this.errorMessage());
+
+	// Variable for holding state of display of filter error messages
+	this.errorDisplay = ko.observable(false);
+
 	// Initialize Google map, info window, and marker array variables
 	this.map;
 	this.markers = [];
@@ -566,9 +573,9 @@ var ViewModel = function() {
 		// Close InfoWindow, if open
 		self.infoWindow.close();
 
-		// Remove previous no match error message, if present
-		if ($('#match-error').length) {
-			$('#match-error').remove();
+		// Remove no match error message, if present
+		if (self.errorDisplay()) {
+			self.errorDisplay(false);
 		}
 
 		// Array to store matching parkList coordinates
@@ -596,7 +603,8 @@ var ViewModel = function() {
 		if (matchFound) {
 			self.changeMapBounds(matchingCoordinates);
 		} else {
-			$('#park-list').append('<h3 id="match-error">No matches found</h3>');
+			self.errorMessage('No matches found');
+			self.errorDisplay(true);
 		}
 	};
 
@@ -606,9 +614,12 @@ var ViewModel = function() {
 		// Close InfoWindow, if open
 		self.infoWindow.close();
 
+		// Remove prior search term(s) from box, if any
+		self.searchTermsString('');
+
 		// Remove no match error message, if present
-		if ($('#match-error').length) {
-			$('#match-error').remove();
+		if (self.errorDisplay()) {
+			self.errorDisplay(false);
 		}
 
 		// Display all park listings and markers
@@ -617,8 +628,8 @@ var ViewModel = function() {
 			park.associatedMarker.setMap(map);
 		});
 
-		// Remove prior search term(s) from box
-		$('#search-box').val('');
+		// Remove prior search term(s) from box, if any
+		self.searchTermsString('');
 
 		// Recenter map
 		var latLng = new google.maps.LatLng(37.090, -91);
@@ -633,9 +644,12 @@ var ViewModel = function() {
 		// Close InfoWindow, if open
 		self.infoWindow.close();
 
+		// Remove prior search term(s) from box, if any
+		self.searchTermsString('');
+
 		// Remove previous no match error message, if present
-		if ($('#match-error').length) {
-			$('#match-error').remove();
+		if (self.errorDisplay()) {
+			self.errorDisplay(false);
 		}
 
 		// Array to store favorite parkList coordinates
@@ -664,7 +678,8 @@ var ViewModel = function() {
 		if (favoriteFound) {
 			self.changeMapBounds(favoriteCoordinates);
 		} else {
-			$('#park-list').append('<h3 id="match-error">No favorites found</h3>');
+			self.errorMessage('No favorites found');
+			self.errorDisplay(true);
 		}
 	}
 

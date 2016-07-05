@@ -64,7 +64,8 @@ a {
 	color: #14ff64;
 }
 
-#window-heading, #favorite-star {
+#window-heading,
+#favorite-star {
 	display: inline-block;
 	max-height: 40px;
 	margin-bottom: 5px;
@@ -156,7 +157,9 @@ a {
 	color: transparent;
 }
 
-#search-button, #reset-button, #favorites-button {
+#search-button,
+#reset-button,
+#favorites-button {
 	width: 85px;
 	text-align: center;
 	font-size: 16px;
@@ -168,22 +171,25 @@ a {
 	border-radius: 5px;
 }
 
-#reset-button, #favorites-button {
+#reset-button,
+#favorites-button {
 	margin: 5px;
 	height: 4vh;
 	font-size: 14px;
 	width: 100px;
 }
 
-#search-button:hover, #reset-button:hover,
- #favorites-button:hover {
+#search-button:hover,
+#reset-button:hover,
+#favorites-button:hover {
 	background-color: #55676a;
 	box-shadow: 0 3px 5px #303f42;
 	color: white;
 }
 
-#search-button:focus, #reset-button:focus,
- #favorites-button:focus {
+#search-button:focus,
+#reset-button:focus,
+#favorites-button:focus {
  	color: white;
  	outline: 0 !important;
  }
@@ -206,7 +212,7 @@ a {
 	cursor: pointer;
 }
 
-#match-error {
+.match-error {
 	text-align: center;
 	margin-top: 20px;
 }

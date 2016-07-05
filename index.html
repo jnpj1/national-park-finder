@@ -12,7 +12,7 @@
 			<h2>Which American National Park Should I Visit This Summer?</h2>
 		</div>
 		<div id="hamburger">
-			<h1 data-bind="click: sidebarToggleStatus">&#9776</h1>
+			<h1 data-bind="click: sidebarToggleStatus">&#9776;</h1>
 		</div>
 	</header>
 	<main>
@@ -34,6 +34,7 @@
 						data-bind="click: filterFavorites">
  				</form>
 			</div>
+			<h3 class="match-error" data-bind="text: errorMessage, visible: errorDisplay"></h3>
 			<ul id="park-list" data-bind="foreach: parkList">
 				<li class="park-list-item" data-bind="text: name, visible: shouldDisplay,
 				css: {favoritePark: favorited() > 0}, click: $parent.markerFocus">
@@ -44,6 +45,13 @@
 	<script src="js/lib/knockout-3.2.0.js"></script>
 	<script src="js/lib/jquery-1.12.1.min.js"></script>
 	<script src="js/app.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFdYCzwJO6Vb5OkThG5sZ53_AiVI4v3eI&libraries=places" async></script>
+	<script>
+		function googleError() {
+			setTimeout(function() {
+				window.alert("Could not load Google Maps");
+			}, 3000);
+		}
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFdYCzwJO6Vb5OkThG5sZ53_AiVI4v3eI&libraries=places" onerror="googleError()" async></script>
 </body>
 </html>
