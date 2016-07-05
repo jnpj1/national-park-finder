@@ -389,19 +389,19 @@ var ViewModel = function() {
 
 		// Add 'favorite-star' class if park is favorited
 		if (park.favorited()) {
-			$('#favorite-star').addClass('favorite-star')
+			$('#favorite-star').addClass('favorite-color')
 		}
 
 		// Animate marker for one bounce
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 		setTimeout(function() {
 			marker.setAnimation(null);
-		}, 750);
+		}, 800);
 
 		// Add event listener for click on favorite star and toggle favorited status
 		$('#favorite-star').click(function() {
 			self.toggleFavorite(park);
-			$('#favorite-star').toggleClass('favorite-star');
+			$('#favorite-star').toggleClass('favorite-color');
 		});
 	}
 
@@ -438,7 +438,6 @@ var ViewModel = function() {
 								var attr = results.photos[i].html_attributions[0];
 								imageContent += ('<div id="image"><img src="' + url + '"><br>' + attr
 									+ '</div>');
-								console.log(imageContent);
 							}
 						}
 					} else {
@@ -683,6 +682,12 @@ var ViewModel = function() {
 	this.toggleFavorite = function(park) {
 		var newFavoriteStatus = !park.favorited();
 		park.favorited(newFavoriteStatus);
+
+		if (park.favorited()) {
+			park.associatedMarker.setIcon('https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_green.png');
+		} else {
+			park.associatedMarker.setIcon(null);
+		}
 	};
 
 	window.addEventListener('load', self.initMap);

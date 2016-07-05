@@ -61,7 +61,7 @@ a {
 }
 
 #favorite-star:hover {
-	color: #ff8362;
+	color: #14ff64;
 }
 
 #window-heading, #favorite-star {
@@ -221,11 +221,11 @@ a {
 }
 
 .favoritePark {
-	color: #deada1;
+	color: #9aff87;
 }
 
-.favorite-star {
-	color: #ff8362;
+.favorite-color {
+	color: #14ff64;
 }
 
 @media screen and (max-width: 855px) {
