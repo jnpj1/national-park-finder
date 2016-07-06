@@ -1,10 +1,10 @@
 # National Park Picker
 
-Find out which American national park(s) you would most like to visit.  All national parks are displayed via Google Maps.  Select a marker to see an extract of the park's Wikipedia article and its top Google Places pictures.
+Find out which American national park(s) you would most like to visit.  All national parks are displayed via Google Maps.  Select a marker to see an extract of the park's Wikipedia article.
 
 ## Run the Application
 
-The application should be opened on [GitHub Pages](https://jnpj1.github.io/national-park-finder/).
+The application can be opened on [GitHub Pages](https://jnpj1.github.io/national-park-finder/).  Alternatively, open the index.html file in your web browser.
 
 ### Opening a Park Information Window
 
@@ -23,7 +23,3 @@ Use the 'Clear Filters' button to reset a map filtered by favorites or by search
 ### Open/Close Sidebar
 
 Click the hamburger at top right to open or close the sidebar.  Sidebar will automatically open on page load on larger devices.
-
-### Getting More Information about Photos in the App
-
-If you see a photo that you like and want more information on the photographer, you can visit their Google Maps contributor page by clicking on their name.

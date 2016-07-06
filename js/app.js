@@ -303,6 +303,7 @@ var Park = function(data) {
 	this.latLon = {lat: data.lat, lng: data.lon};
 	this.shouldDisplay = ko.observable(true);
 	this.associatedMarker;
+	this.wikiContent = ko.observable('');
 };
 
 // Knockout ViewModel
@@ -379,90 +380,31 @@ var ViewModel = function() {
 	// Function for rendering info windows
 	this.infoWindowRender = function(map, marker, park) {
 
-		// Create HTML content string for text in info window
-		var content = '<div id="text-content"><h3 id="window-heading">' + park.name() +
-			' National Park</h3></div><div id="wiki-content">' +
-			'</div><div id="image-content"></div>';
+		//any open info windows
+		self.infoWindow.setContent('');
+
+		// Call functions for searching and adding photos and wikipedia information
+		self.wikiAppender(park);
 
 		// Open and pass content string to info window
 		self.infoWindow.open(map, marker);
-		self.infoWindow.setContent(content);
-
-		// Call functions for searching and adding photos and wikipedia information
-		self.photoAppender(park.name());
-		self.wikiAppender(park.name());
 
 		// Animate marker for one bounce
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 		setTimeout(function() {
 			marker.setAnimation(null);
 		}, 800);
-	}
-
-	// Function for searching for google places photos and adding to info window HTML
-	this.photoAppender = function(data) {
-		var parkName = data + ' national park';
-
-		// Initialize variable for holding innerHTML of image-content div
-		var imageContent = '';
-
-		// Initialize google places service
-		var service = new google.maps.places.PlacesService(map);
-
-		// Callback function for google places search that will find the park's place_id
-		// and query for images of the park.  The images will then be appended
-		// to the imageContent HTML string and added to info window.
-		function callback(results, status) {
-			var place = results[0].place_id;
-			var imageContentDiv = $('#image-content');
-			service.getDetails({placeId: place}, function(results, status) {
-				if (status == google.maps.places.PlacesServiceStatus.OK) {
-
-					// Check if Google places information contains any photos.
-					// If no photos, update content to notify user.
-					if (results.photos) {
-
-						// Add url and attribution of first three (or less) photos to HTML strings for display
-						for (var i = 0; i < 3; i++) {
-
-							// Check if there is a photo for the current index to avoid errors when only one or two
-							// photos were returned
-							if (results.photos[i]) {
-								var url = results.photos[i].getUrl({maxWidth: 100, maxHeight: 100});
-								var attr = results.photos[i].html_attributions[0];
-								imageContent += ('<div id="image"><img src="' + url + '"><br>' + attr
-									+ '</div>');
-							}
-						}
-					} else {
-						imageContent = '<p id="places-fail">No Google Places images for this park.</p>';
-						imageContentDiv.css('height', '40px');
-					}
-				} else {
-					imageContent = '<p id="places-fail">Failed to load Google Places images.</p>';
-					imageContentDiv.css('height', '40px');
-				}
-				imageContentDiv.html(imageContent);
-			});
-		};
-
-		// Help Google disambiguate Glacier Bay National Park
-		if (data === 'Glacier Bay') {
-			parkName = data + ' national park and preserve';
-			$('#wiki-content').css({'font-size': '12px', 'height': '180px', 'margin-top': '10px'});
-		}
-
-		// Google places text search for park
-		service.textSearch({query: parkName, key: 'AIzaSyCFdYCzwJO6Vb5OkThG5sZ53_AiVI4v3eI'}, callback);
 	};
 
 	// Function for searching for wikipedia information and adding to info window HTML
-	this.wikiAppender = function(data) {
-		var searchString = data + ' national park';
-		var wikiContentDiv = $('#wiki-content');
+	this.wikiAppender = function(park) {
+
+		var content = '<div id="text-content"><h3 id="window-heading">' + park.name() +
+			' National Park</h3></div><div id="wiki-content">';
+		var searchString = park.name() + ' national park';
 
 		// Handle wikipedia disambiguation of Glacier National Park by adding country
-		if (data === 'Glacier') {
+		if (park.name() === 'Glacier') {
 			searchString += ' U.S.';
 		}
 
@@ -478,12 +420,8 @@ var ViewModel = function() {
 
 		// Timeout function to display error if Wikipedia ajax requests fail
 		var wikiRequestTimeout = setTimeout(function() {
-			wikiContentDiv.html('<p id="wiki-fail">Wikipedia article could not be loaded</p>');
-			wikiContentDiv.css('height', '40px');
+			alert('Wikipedia articles could not be loaded.')
 		}, 3000);
-
-		// Variable to store HTML string of wikipedia information
-		var wikiContent = '';
 
 		// Search for official article title in first ajax request.  Use title in second ajax request
 		// to return extract of article.
@@ -506,6 +444,8 @@ var ViewModel = function() {
 				url: secondUrlWiki,
 				dataType: 'jsonp'
 			}).done(function(result) {
+				var wikiContentBuilder = '';
+
 				// Function to extract about the first several sentences of wiki information
 				$.each(result.query.pages, function(page) {
 
@@ -517,7 +457,7 @@ var ViewModel = function() {
 
 					var finalStringLength = 0;
 					var extractedIndex = 0;
-					wikiContent += '<p>';
+					wikiContentBuilder += '<p>';
 
 					// Compute length of extracted string and continue to iteratively add
 					// sentences while it is less than 300 characters long.
@@ -525,9 +465,9 @@ var ViewModel = function() {
 						// If/else statement to prevent errors on Wiki extracts of less than
 						// 300 characters.
 						if (extracted[extractedIndex]) {
-							wikiContent += extracted[extractedIndex] + '. ';
+							wikiContentBuilder += extracted[extractedIndex] + '. ';
 							extractedIndex++;
-							finalStringLength = wikiContent.length;
+							finalStringLength = wikiContentBuilder.length;
 						} else {
 							finalStringLength = 300;
 						}
@@ -535,14 +475,17 @@ var ViewModel = function() {
 
 					// If statement to add additional sentence if period in 'St. ' causes
 					// termination of while loop mid-sentence.
-					if (wikiContent.slice(-4) === 'St. ') {
-						wikiContent += extracted[extractedIndex] + '. ';
+					if (wikiContentBuilder.slice(-4) === 'St. ') {
+						wikiContentBuilder += extracted[extractedIndex] + '. ';
 					}
-					wikiContent += '</p>';
+					wikiContentBuilder += '</p>';
 				});
-				wikiContentDiv.html(wikiContent);
+				console.log(wikiContentBuilder);
+				park.wikiContent(wikiContentBuilder);
 				clearTimeout(wikiRequestTimeout);
-			})
+				content += park.wikiContent() + '</div>';
+				self.infoWindow.setContent(content);
+			});
 		});
 	};
 
