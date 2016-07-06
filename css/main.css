@@ -53,19 +53,7 @@ a {
 	width: 260px;
 }
 
-#favorite-star {
-	text-shadow: 2px 2px 3px #6c7a7d;
-	font-size: 30px;
-	margin-left: 20px;
-	width: 10px;
-}
-
-#favorite-star:hover {
-	color: #14ff64;
-}
-
-#window-heading,
-#favorite-star {
+#window-heading {
 	display: inline-block;
 	max-height: 40px;
 	margin-bottom: 5px;
@@ -97,10 +85,6 @@ a {
 
 #image {
 	vertical-align: middle;
-}
-
-#image a:hover {
-	text-decoration: underline;
 }
 
 #places-fail {
@@ -158,8 +142,7 @@ a {
 }
 
 #search-button,
-#reset-button,
-#favorites-button {
+#reset-button {
 	width: 85px;
 	text-align: center;
 	font-size: 16px;
@@ -171,8 +154,7 @@ a {
 	border-radius: 5px;
 }
 
-#reset-button,
-#favorites-button {
+#reset-button {
 	margin: 5px;
 	height: 4vh;
 	font-size: 14px;
@@ -180,18 +162,16 @@ a {
 }
 
 #search-button:hover,
-#reset-button:hover,
-#favorites-button:hover {
+#reset-button:hover {
 	background-color: #55676a;
 	box-shadow: 0 3px 5px #303f42;
 	color: white;
 }
 
 #search-button:focus,
-#reset-button:focus,
-#favorites-button:focus {
- 	color: white;
- 	outline: 0 !important;
+#reset-button:focus {
+	color: white;
+	outline: 0 !important;
  }
 
 #park-list {
@@ -224,14 +204,6 @@ a {
 .park-list-item:hover {
 	color: #fff;
 	text-shadow: 2px 2px 3px #6c7a7d;
-}
-
-.favoritePark {
-	color: #9aff87;
-}
-
-.favorite-color {
-	color: #14ff64;
 }
 
 @media screen and (max-width: 855px) {
@@ -288,9 +260,6 @@ a {
 	#window-heading {
 		max-width: 200px;
 		font-size: 12px;
-	}
-	#favorite-star {
-		margin-left: 10px;
 	}
 	#image {
 		padding: 10px;

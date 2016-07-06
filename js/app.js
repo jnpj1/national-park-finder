@@ -302,7 +302,6 @@ var Park = function(data) {
 	this.name = ko.observable(data.name);
 	this.latLon = {lat: data.lat, lng: data.lon};
 	this.shouldDisplay = ko.observable(true);
-	this.favorited = ko.observable(false);
 	this.associatedMarker;
 };
 
@@ -327,7 +326,6 @@ var ViewModel = function() {
 
 	// Variable for holding filter error messages, if any
 	this.errorMessage = ko.observable('');
-	console.log(this.errorMessage());
 
 	// Variable for holding state of display of filter error messages
 	this.errorDisplay = ko.observable(false);
@@ -383,7 +381,7 @@ var ViewModel = function() {
 
 		// Create HTML content string for text in info window
 		var content = '<div id="text-content"><h3 id="window-heading">' + park.name() +
-			' National Park</h3><h4 id="favorite-star">&#9733</h4></div><div id="wiki-content">' +
+			' National Park</h3></div><div id="wiki-content">' +
 			'</div><div id="image-content"></div>';
 
 		// Open and pass content string to info window
@@ -394,22 +392,11 @@ var ViewModel = function() {
 		self.photoAppender(park.name());
 		self.wikiAppender(park.name());
 
-		// Add 'favorite-star' class if park is favorited
-		if (park.favorited()) {
-			$('#favorite-star').addClass('favorite-color')
-		}
-
 		// Animate marker for one bounce
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 		setTimeout(function() {
 			marker.setAnimation(null);
 		}, 800);
-
-		// Add event listener for click on favorite star and toggle favorited status
-		$('#favorite-star').click(function() {
-			self.toggleFavorite(park);
-			$('#favorite-star').toggleClass('favorite-color');
-		});
 	}
 
 	// Function for searching for google places photos and adding to info window HTML
@@ -482,30 +469,30 @@ var ViewModel = function() {
 		// Define API query string
 		var urlWiki = 'https://en.wikipedia.org/w/api.php';
 		var firstUrlWiki = urlWiki + '?' + $.param({
-        	'action': 'query',
-        	'format': 'json',
-       		'srsearch': searchString,
-        	'list': 'search',
-        	'srlimit': 1
-   		});
+			'action': 'query',
+			'format': 'json',
+			'srsearch': searchString,
+			'list': 'search',
+			'srlimit': 1
+		});
 
 		// Timeout function to display error if Wikipedia ajax requests fail
-    	var wikiRequestTimeout = setTimeout(function() {
+		var wikiRequestTimeout = setTimeout(function() {
 			wikiContentDiv.html('<p id="wiki-fail">Wikipedia article could not be loaded</p>');
 			wikiContentDiv.css('height', '40px');
-    	}, 3000);
+		}, 3000);
 
-    	// Variable to store HTML string of wikipedia information
-    	var wikiContent = '';
+		// Variable to store HTML string of wikipedia information
+		var wikiContent = '';
 
-    	// Search for official article title in first ajax request.  Use title in second ajax request
-    	// to return extract of article.
-    	$.ajax({
-  			url: firstUrlWiki,
-  			dataType: 'jsonp'
-    	}).done(function(result) {
-    		var wikiTitle = result.query.search[0].title;
-       		var secondUrlWiki = urlWiki + '?' + $.param({
+		// Search for official article title in first ajax request.  Use title in second ajax request
+		// to return extract of article.
+		$.ajax({
+			url: firstUrlWiki,
+			dataType: 'jsonp'
+		}).done(function(result) {
+			var wikiTitle = result.query.search[0].title;
+			var secondUrlWiki = urlWiki + '?' + $.param({
 				'action': 'query',
 				'format': 'json',
 				'prop': 'extracts',
@@ -515,48 +502,48 @@ var ViewModel = function() {
 				'titles': wikiTitle
 			});
 
-    		$.ajax({
-    			url: secondUrlWiki,
-    			dataType: 'jsonp'
-    		}).done(function(result) {
-    			// Function to extract about the first several sentences of wiki information
-    			$.each(result.query.pages, function(page) {
+			$.ajax({
+				url: secondUrlWiki,
+				dataType: 'jsonp'
+			}).done(function(result) {
+				// Function to extract about the first several sentences of wiki information
+				$.each(result.query.pages, function(page) {
 
-    				// Replace line breaks with spaces in extract for better iteration
-    				var extract = this.extract.replace(/\n/g, ' ');
+					// Replace line breaks with spaces in extract for better iteration
+					var extract = this.extract.replace(/\n/g, ' ');
 
-    				// Split string into sentences
-    				var extracted = extract.split('. ');
+					// Split string into sentences
+					var extracted = extract.split('. ');
 
-    				var finalStringLength = 0;
-    				var extractedIndex = 0;
-    				wikiContent += '<p>';
+					var finalStringLength = 0;
+					var extractedIndex = 0;
+					wikiContent += '<p>';
 
-    				// Compute length of extracted string and continue to iteratively add
-    				// sentences while it is less than 300 characters long.
-    				while (finalStringLength < 300) {
-    					// If/else statement to prevent errors on Wiki extracts of less than
-    					// 300 characters.
-    					if (extracted[extractedIndex]) {
-    						wikiContent += extracted[extractedIndex] + '. ';
-    						extractedIndex++;
-    						finalStringLength = wikiContent.length;
-    					} else {
-    						finalStringLength = 300;
-    					}
-    				}
+					// Compute length of extracted string and continue to iteratively add
+					// sentences while it is less than 300 characters long.
+					while (finalStringLength < 300) {
+						// If/else statement to prevent errors on Wiki extracts of less than
+						// 300 characters.
+						if (extracted[extractedIndex]) {
+							wikiContent += extracted[extractedIndex] + '. ';
+							extractedIndex++;
+							finalStringLength = wikiContent.length;
+						} else {
+							finalStringLength = 300;
+						}
+					}
 
-    				// If statement to add additional sentence if period in 'St. ' causes
-    				// termination of while loop mid-sentence.
-    				if (wikiContent.slice(-4) === 'St. ') {
-    					wikiContent += extracted[extractedIndex] + '. ';
-    				}
-    				wikiContent += '</p>';
-    			});
-    			wikiContentDiv.html(wikiContent);
-    			clearTimeout(wikiRequestTimeout);
-    		})
-    	});
+					// If statement to add additional sentence if period in 'St. ' causes
+					// termination of while loop mid-sentence.
+					if (wikiContent.slice(-4) === 'St. ') {
+						wikiContent += extracted[extractedIndex] + '. ';
+					}
+					wikiContent += '</p>';
+				});
+				wikiContentDiv.html(wikiContent);
+				clearTimeout(wikiRequestTimeout);
+			})
+		});
 	};
 
 	// Display function to open infoWindow when park listing item is clicked
@@ -637,52 +624,6 @@ var ViewModel = function() {
 		map.setZoom(4);
 	};
 
-	// Function to filter map and markers by favorite status when 'Show Favorites'
-	// button is clicked.
-	this.filterFavorites = function(element) {
-
-		// Close InfoWindow, if open
-		self.infoWindow.close();
-
-		// Remove prior search term(s) from box, if any
-		self.searchTermsString('');
-
-		// Remove previous no match error message, if present
-		if (self.errorDisplay()) {
-			self.errorDisplay(false);
-		}
-
-		// Array to store favorite parkList coordinates
-		var favoriteCoordinates = [];
-
-		// Variable to check if favorite(s) exist
-		var favoriteFound = false;
-
-		// Iterate through parks array. Call functions for toggling off display of
-		// listings and markers of parks that are not favorited and toggling on display
-		// of parks that are favorited.
-		self.parkList().forEach(function(park, index) {
-			if (!park.favorited()) {
-				park.shouldDisplay(false);
-				park.associatedMarker.setMap(null);
-			} else {
-				favoriteCoordinates.push(park.latLon);
-				favoriteFound = true;
-				park.shouldDisplay(true);
-				park.associatedMarker.setMap(map);
-			}
-		});
-
-		// Check to see if favorites were found. If so, call function to change map bounds.
-		// If no favorites, display message.
-		if (favoriteFound) {
-			self.changeMapBounds(favoriteCoordinates);
-		} else {
-			self.errorMessage('No favorites found');
-			self.errorDisplay(true);
-		}
-	}
-
 	// Extend/change map bounds to best display markers after filter event
 	this.changeMapBounds = function(data) {
 		var bounds = new google.maps.LatLngBounds();
@@ -691,18 +632,6 @@ var ViewModel = function() {
 			bounds.extend(currentLatLng);
 		}
 		map.fitBounds(bounds);
-	};
-
-	// Change favorite status of park
-	this.toggleFavorite = function(park) {
-		var newFavoriteStatus = !park.favorited();
-		park.favorited(newFavoriteStatus);
-
-		if (park.favorited()) {
-			park.associatedMarker.setIcon('https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_green.png');
-		} else {
-			park.associatedMarker.setIcon(null);
-		}
 	};
 
 	window.addEventListener('load', self.initMap);

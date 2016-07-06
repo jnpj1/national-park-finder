@@ -16,16 +16,6 @@ Select a park in one of two ways:
 
 Search for a park by a full or partial name (i.e. 'Big Bend' or 'cave').  Submit by hitting the enter key or clicking the 'Find Park!' button.
 
-### Favoriting a Park
-
-If you find a park you would like to favorite, open its information window and click the star button.  The star button, sidebar listing, and map marker will be highlighted green.
-
-To unfavorite a park, open its information window and click the star button.  The park will be removed from your favorites.
-
-### Filter Favorite Parks
-
-Show all of your favorite parks on the map by clicking the 'Show Favorites' button in the sidebar.
-
 ### Reset all Map Filters
 
 Use the 'Clear Filters' button to reset a map filtered by favorites or by search terms.  All park listings and markers will reappear.
