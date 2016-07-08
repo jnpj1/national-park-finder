@@ -420,7 +420,7 @@ var ViewModel = function() {
 
 		// Timeout function to display error if Wikipedia ajax requests fail
 		var wikiRequestTimeout = setTimeout(function() {
-			alert('Wikipedia articles could not be loaded.')
+			alert('Wikipedia articles could not be loaded.');
 		}, 3000);
 
 		// Search for official article title in first ajax request.  Use title in second ajax request
